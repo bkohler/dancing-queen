@@ -1,24 +1,29 @@
-# README
+# Dancing Queen 👑
+A Rails application that randomly displays historical queens with fun facts
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+## Features
+- Random queen selection from database
+- Responsive design with Tailwind CSS
+- Clean card layout with hover effects
+- Easy deployment with Docker support
 
-Things you may want to cover:
+## Setup
+```bash
+git clone https://github.com/yourusername/dancing-queen.git
+cd dancing-queen
+bundle install
+rails db:seed
+npm install
+rails server
+```
 
-* Ruby version
+## Usage
+Visit `http://localhost:3000` and click "Spin the Crown" to see different queens
 
-* System dependencies
+## Requirements
+- Ruby 3.4.1
+- Node.js 18+
+- PostgreSQL
 
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+## License
+MIT License

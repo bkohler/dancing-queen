@@ -1,0 +1,24 @@
+<div class="min-h-screen bg-gray-100 py-8 px-4">
+  <div class="max-w-2xl mx-auto bg-white rounded-lg shadow-md p-6">
+    <h1 class="text-3xl font-bold text-purple-600 mb-6 text-center">Royal Randomizer</h1>
+    
+    <%= button_to "Spin the Crown", root_path, method: :get, 
+      class: "mb-8 w-full bg-purple-600 hover:bg-purple-700 text-white font-bold py-3 px-6 rounded-lg transition-colors duration-200" %>
+
+    <% if @queen %>
+      <div class="space-y-4">
+        <h2 class="text-2xl font-semibold text-gray-800"><%= @queen.name %></h2>
+        <div class="prose max-w-none">
+          <h3 class="text-lg font-medium text-gray-700">Historical Facts:</h3>
+          <ul class="list-disc pl-6 space-y-2">
+            <% @queen.facts.split('. ').each do |fact| %>
+              <li class="text-gray-600"><%= fact.strip %></li>
+            <% end %>
+          </ul>
+        </div>
+      </div>
+    <% else %>
+      <p class="text-gray-600 text-center">No queens found in the database.</p>
+    <% end %>
+  </div>
+</div>
