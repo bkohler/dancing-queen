@@ -2,23 +2,22 @@
   <div class="max-w-2xl mx-auto bg-white rounded-lg shadow-md p-6">
     <h1 class="text-3xl font-bold text-purple-600 mb-6 text-center">Royal Randomizer</h1>
     
-    <%= button_to "Spin the Crown", root_path, method: :get, 
-      class: "mb-8 w-full bg-purple-600 hover:bg-purple-700 text-white font-bold py-3 px-6 rounded-lg transition-colors duration-200" %>
+    <%= link_to "Spin the Crown", root_path(spin: true), 
+      class: "mb-8 w-full bg-purple-600 hover:bg-purple-700 text-white font-bold py-3 px-6 rounded-lg transition-colors duration-200 text-center" %>
 
     <% if @queen %>
       <div class="space-y-4">
-        <h2 class="text-2xl font-semibold text-gray-800"><%= @queen.name %></h2>
-        <div class="prose max-w-none">
-          <h3 class="text-lg font-medium text-gray-700">Historical Facts:</h3>
-          <ul class="list-disc pl-6 space-y-2">
-            <% @queen.facts.split('. ').each do |fact| %>
-              <li class="text-gray-600"><%= fact.strip %></li>
-            <% end %>
-          </ul>
+        <div class="relative h-48 w-48 mx-auto">
+          <% if @queen.image.attached? %>
+            <%= image_tag @queen.image, class: "rounded-full h-full w-full object-cover border-4 border-purple-200", alt: @queen.name %>
+          <% end %>
         </div>
+        <h2 class="text-2xl font-semibold text-gray-800 text-center mt-4"><%= @queen.name %></h2>
       </div>
     <% else %>
-      <p class="text-gray-600 text-center">No queens found in the database.</p>
+      <div class="text-center py-8">
+        <p class="text-gray-500">No queens found</p>
+      </div>
     <% end %>
   </div>
 </div>

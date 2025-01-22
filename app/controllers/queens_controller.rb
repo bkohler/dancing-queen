@@ -1,5 +1,5 @@
 class QueensController < ApplicationController
   def index
-    @queen = Queen.order("RANDOM()").first
+    @queen = params[:spin] ? Queen.order("RANDOM()").first : nil
   end
 end
