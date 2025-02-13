@@ -1,0 +1,15 @@
+<div class="message <%= message.from_queen? ? 'queen-message' : 'user-message' %> mb-4">
+  <div class="flex items-start <%= message.from_queen? ? '' : 'flex-row-reverse' %>">
+    <div class="flex-grow <%= message.from_queen? ? 'mr-4' : 'ml-4' %>">
+      <div class="<%= message.from_queen? ? 'bg-purple-50 text-gray-800' : 'bg-purple-600 text-white' %> rounded-lg px-4 py-2 shadow-sm">
+        <div class="text-sm whitespace-pre-wrap">
+          <%= message.content %>
+        </div>
+      </div>
+      <div class="text-xs text-gray-500 mt-1 <%= message.from_queen? ? 'text-left' : 'text-right' %>">
+        <%= message.from_queen? ? message.queen.name : 'You' %> • 
+        <%= time_ago_in_words(message.created_at) %> ago
+      </div>
+    </div>
+  </div>
+</div>

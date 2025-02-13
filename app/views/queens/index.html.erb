@@ -1,23 +1,76 @@
 <div class="min-h-screen bg-gray-100 py-8 px-4">
-  <div class="max-w-2xl mx-auto bg-white rounded-lg shadow-md p-6">
-    <h1 class="text-3xl font-bold text-purple-600 mb-6 text-center">Royal Randomizer</h1>
-    
-    <%= link_to "Spin the Crown", root_path(spin: true), 
-      class: "mb-8 w-full bg-purple-600 hover:bg-purple-700 text-white font-bold py-3 px-6 rounded-lg transition-colors duration-200 text-center" %>
+  <div class="max-w-4xl mx-auto">
+    <div class="bg-white rounded-lg shadow-md overflow-hidden">
+      <div class="p-6">
+        <h1 class="text-3xl font-bold text-purple-600 mb-6 text-center">Historical Queens</h1>
+        
+        <% if @queen %>
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <!-- Queen Information -->
+            <div class="md:col-span-1 space-y-4">
+              <div class="text-center">
+                <h2 class="text-2xl font-semibold text-gray-800"><%= @queen.name %></h2>
+                <p class="text-lg text-purple-600"><%= @queen.kingdom %></p>
+                <p class="text-gray-600">
+                  Reign: <%= @queen.reign_start.strftime("%B %d, %Y") %> - <%= @queen.reign_end.strftime("%B %d, %Y") %>
+                </p>
+              </div>
 
-    <% if @queen %>
-      <div class="space-y-4">
-        <div class="relative h-48 w-48 mx-auto">
-          <% if @queen.image.attached? %>
-            <%= image_tag @queen.image, class: "rounded-full h-full w-full object-cover border-4 border-purple-200", alt: @queen.name %>
-          <% end %>
-        </div>
-        <h2 class="text-2xl font-semibold text-gray-800 text-center mt-4"><%= @queen.name %></h2>
+              <%= link_to "Meet Another Queen", root_path(spin: true), 
+                class: "w-full block text-center bg-purple-600 hover:bg-purple-700 text-white font-bold py-2 px-4 rounded-lg transition-colors duration-200" %>
+
+              <div class="bg-purple-50 rounded-lg p-4">
+                <h3 class="text-lg font-semibold text-purple-800 mb-2">Notable Achievements</h3>
+                <p class="text-gray-700"><%= @queen.achievements %></p>
+              </div>
+
+              <div class="bg-gray-50 rounded-lg p-4">
+                <h3 class="text-lg font-semibold text-gray-800 mb-2">Historical Facts</h3>
+                <p class="text-gray-700"><%= @queen.facts %></p>
+              </div>
+            </div>
+
+            <!-- Chat Interface -->
+            <div class="md:col-span-2 bg-white rounded-lg border border-gray-200">
+              <div class="p-4 border-b border-gray-200">
+                <h3 class="text-lg font-semibold text-gray-800">
+                  Converse with <%= @queen.name %>
+                </h3>
+                <p class="text-sm text-gray-600">
+                  Ask questions about <%= @queen.name %>'s life, reign, and era
+                </p>
+              </div>
+
+              <div class="p-4">
+                <div data-controller="chat" class="space-y-4">
+                  <div id="messages" 
+                       data-chat-target="messages"
+                       class="space-y-4 h-[400px] overflow-y-auto px-2">
+                    <% if @conversation&.messages&.any? %>
+                      <%= render partial: "messages/message", 
+                                collection: @conversation.messages.chronological %>
+                    <% else %>
+                      <div class="text-center text-gray-500 py-8">
+                        Begin your conversation with <%= @queen.name %>
+                      </div>
+                    <% end %>
+                  </div>
+
+                  <div id="message_form">
+                    <%= render "messages/form", 
+                              queen: @queen, 
+                              conversation: @conversation || @queen.conversations.build %>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        <% else %>
+          <div class="text-center py-8">
+            <p class="text-gray-500">No queens found in the database</p>
+          </div>
+        <% end %>
       </div>
-    <% else %>
-      <div class="text-center py-8">
-        <p class="text-gray-500">No queens found</p>
-      </div>
-    <% end %>
+    </div>
   </div>
 </div>

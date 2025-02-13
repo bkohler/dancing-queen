@@ -1,0 +1,29 @@
+<%= form_with(model: [queen, Message.new],
+            data: { 
+              controller: "chat",
+              action: "submit->chat#submit turbo:submit-end->chat#reset"
+            },
+            class: "mt-4") do |f| %>
+  <%= hidden_field_tag :conversation_id, conversation&.id %>
+  <div class="flex items-center space-x-3">
+    <div class="flex-grow relative">
+      <%= f.text_area :content,
+                    data: { 
+                      chat_target: "input",
+                      controller: "textarea-autogrow",
+                      action: "keydown->textarea-autogrow#keydown input->textarea-autogrow#resize"
+                    },
+                    class: "w-full rounded-lg border-gray-300 focus:border-purple-500 focus:ring-purple-500 resize-none",
+                    placeholder: "Ask #{queen.name} a question...",
+                    rows: 1,
+                    required: true %>
+    </div>
+    <%= button_tag type: 'submit',
+                class: "inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-purple-600 hover:bg-purple-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-purple-500" do %>
+      Send
+      <svg class="ml-2 -mr-1 h-4 w-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8" />
+      </svg>
+    <% end %>
+  </div>
+<% end %>
